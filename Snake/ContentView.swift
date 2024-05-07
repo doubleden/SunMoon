@@ -16,17 +16,41 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Color(isDay ? .blue : .black).ignoresSafeArea()
+            Color(isDay ? .blue : .black)
+                .ignoresSafeArea()
             
-            SunView()
-                .frame(width: 200, height: 200)
-                .offset(x: sunPosition, y: 0)
-                .opacity(isDay ? 1 : 0)
-            
-            MoonView()
-                .frame(width: 200, height: 200)
-                .offset(x: moonPosition, y: 0)
-                .opacity(isDay ? 0 : 1)
+            VStack {
+                Spacer()
+                
+                ZStack {
+                    SunView()
+                        .frame(width: 200, height: 200)
+                        .offset(x: sunPosition, y: 0)
+                        .opacity(isDay ? 1 : 0)
+                    
+                    MoonView()
+                        .frame(width: 200, height: 200)
+                        .offset(x: moonPosition, y: 0)
+                        .opacity(isDay ? 0 : 1)
+                }
+                
+                Spacer()
+                
+                Button(action: startAnimation, label: {
+                    Text(isDay ? "Off" : "On")
+                        .foregroundStyle(isButtonDisabled ? .gray : .black)
+                        .font(.title)
+                })
+                .frame(width: 100, height:60)
+                .background(Gradient(colors: [.purple, .yellow]))
+                .clipShape(.buttonBorder)
+                .shadow(radius: 10)
+                .disabled(isButtonDisabled)
+                
+                Spacer()
+                
+            }
+            .padding()
         }
     }
     
